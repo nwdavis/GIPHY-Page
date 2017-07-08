@@ -60,12 +60,18 @@ function giphyQuery(){
         })
      .done(function(response){
         var results = response.data;
+        console.log(results)
         for (var i = 0; i < results.length; i++){
 
             var actorDiv = $("<div>");
             var rating = $("<p>").text("Rating: " + results[i].rating);
             var actorImage = $("<img>");
-            actorImage.attr("src", results[i].images.fixed_height.url);
+            actorImage.attr("src", results[i].images.fixed_height_still.url);
+            actorImage.attr("data-still", results[i].images.fixed_height_still.url);
+            actorImage.attr("data-animate", results[i].images.fixed_height.url);
+            actorImage.attr("data-state", "still");
+            actorImage.attr("class", "gif");
+
 
             actorDiv.append(rating);
             actorDiv.append(actorImage);
@@ -75,6 +81,20 @@ function giphyQuery(){
      });
     
 };
+
+
+function playPause(){
+    var state = $(this).attr("data-state");
+    if (state === "still") {
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
+      } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+      }
+};
+
+$(document).on("click", ".gif", playPause);
 
 
 $(document).on("click", ".actor", giphyQuery);
