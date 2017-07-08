@@ -48,9 +48,36 @@ $("#addActor").on("click", function(event) {
 
       });
 
+function giphyQuery(){
+
+    var actorName = $(this).attr("data-name");
+    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" +
+        actorName + "&api_key=da1c58a5cc3c4c269de67eb540ebbd7e&limit=10";
+
+     $.ajax({
+          url: queryURL,
+          method: "GET"
+        })
+     .done(function(response){
+        var results = response.data;
+        for (var i = 0; i < results.length; i++){
+
+            var actorDiv = $("<div>");
+            var rating = $("<p>").text("Rating: " + results[i].rating);
+            var actorImage = $("<img>");
+            actorImage.attr("src", results[i].images.fixed_height.url);
+
+            actorDiv.append(rating);
+            actorDiv.append(actorImage);
+
+            $("#gifDump").prepend(actorDiv);
+        };
+     });
+    
+};
 
 
-// $(document).on("click", ".movie", );
+$(document).on("click", ".actor", giphyQuery);
 
 renderButtons();
 
