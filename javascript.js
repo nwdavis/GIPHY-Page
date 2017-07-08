@@ -51,7 +51,7 @@ $("#addActor").on("click", function(event) {
 function giphyQuery(){
 
     var actorName = $(this).attr("data-name");
-    var queryURL = "http://api.giphy.com/v1/gifs/search?q=" +
+    var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
         actorName + "&api_key=da1c58a5cc3c4c269de67eb540ebbd7e&limit=10";
 
      $.ajax({
