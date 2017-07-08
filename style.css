@@ -1,3 +1,11 @@
 button {
 	margin: 5px;
 }
+
+body {
+	background: url(skewed.png);
+}
+
+p {
+	color: white;
+}
